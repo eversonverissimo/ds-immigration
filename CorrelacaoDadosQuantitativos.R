@@ -54,4 +54,25 @@ chart.Correlation(Refugees[,c("UpperMiddleIncome", "CountConditions")], histogra
 chart.Correlation(Refugees[,c("HighIncome", "CountConditions")], histogram = TRUE, method = "pearson")
 
 
+################ IMMIGRATION RATE ###################
 
+# OECD vs ImmigrationRate
+chart.Correlation(Refugees[,c("OECD", "ImmigrationRate")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("OECD", "LowImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("OECD", "LowerMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("OECD", "UpperMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("OECD", "HighImmigration")], histogram = TRUE, method = "pearson")
+
+# CountNo vs ImmigrationRate
+chart.Correlation(Refugees[,c("CountNo", "ImmigrationRate")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountNo", "LowImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountNo", "LowerMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountNo", "UpperMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountNo", "HighImmigration")], histogram = TRUE, method = "pearson")
+
+# CountYes vs ImmigrationRate
+chart.Correlation(Refugees[,c("CountYes", "ImmigrationRate")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountYes", "LowImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountYes", "LowerMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountYes", "UpperMiddleImmigration")], histogram = TRUE, method = "pearson")
+chart.Correlation(Refugees[,c("CountYes", "HighImmigration")], histogram = TRUE, method = "pearson")

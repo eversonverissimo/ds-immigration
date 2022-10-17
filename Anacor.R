@@ -20,7 +20,9 @@ Refugees_categorical$OECD[Refugees_categorical$OECD == 0] <- 'Não'
 Refugees_categorical$OECD[Refugees_categorical$OECD == 1] <- 'Sim'
 #Refugees_categorical <- Refugees_categorical %>% dplyr::arrange(factor(col1, levels = c("Low income", "Lower middle income", "Upper middle income", "High income")))
 
-col1 <- Refugees_categorical$OECD
+Refugees_categorical$ImmigrationStatus <- Refugees$ImmigrationStatus
+
+col1 <- Refugees_categorical$ImmigrationStatus
 col2 <- Refugees_categorical[,18]
 cols <- data.frame(col1, col2)
 

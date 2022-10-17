@@ -4,12 +4,12 @@ library(ggplot2)
 
 Refugees <- read.csv("database/Dataset.csv")
 Refugees_categorical <- Refugees[,2:25]
-Refugees_categorical$OECD <- Refugees$OECD
+Refugees_categorical$ImmigrationStatus <- Refugees$ImmigrationStatus
 
 pvalues = array()
 its = array()
 for (i in 4:23){
-  table_cont <- table(Refugees_categorical$Income, Refugees_categorical[,i])
+  table_cont <- table(Refugees_categorical[,5], Refugees_categorical[,i])
   qui2 <- chisq.test(table_cont)
   pvalues[i-3] <- qui2$p.value
   its[i-3] <- qui2$statistic/nrow(Refugees_categorical)
@@ -42,3 +42,42 @@ ggplot(df, aes(Perguntas)) +
         legend.title=element_blank(),legend.position="top") +
   scale_fill_manual(values=c("Não-correlacionado" = "darkred", "Correlacionado" = "darkblue"))
 
+
+# Perguntas vs Perguntas
+#pvalues = matrix(nrow=20, ncol=20)
+pvalues = data.frame(col1 = 1, col2 = 2, PVal = 0)
+for (i in 4:23){
+  for (j in 4:23){
+    table_cont <- table(Refugees_categorical[,i], Refugees_categorical[,j])
+    qui2 <- chisq.test(table_cont)
+    #pvalues[pvalues$col1 == i-3, pvalues$col2 == j-3] <- qui2$p.value
+    if (i != j){
+      pvalues[nrow(pvalues) + 1,] = c((i-3), (j-3), qui2$p.value)
+    }
+  }
+}
+pvalues <- pvalues[-1,]
+#pvalues_matrix <- as.matrix(pvalues)
+ggp <- ggplot(pvalues_matrix, aes(X1, X2)) +                           # Create heatmap with ggplot2
+  geom_tile(aes(fill = 0.05))
+ggp   
+heatmap(pvalues, Rowv = NA, Colv = NA)   
+
+pvalues %>%
+  ggplot(aes(x = col1, 
+             y = col2, 
+             fill = log10(PVal), 
+             label = round(log10(PVal), 3))) +
+  geom_tile() +
+  geom_label(size = 3, fill = "white") +
+  scale_fill_gradient2(low = "darkred", 
+                       mid = "white", 
+                       high = "darkblue",
+                       midpoint = 0) +
+  labs(x = NULL, y = NULL) +
+  coord_flip() +
+  theme(legend.title = element_blank(), 
+        panel.background = element_rect("white"),
+        legend.position = "none",
+        axis.text.x = element_text())
+  
